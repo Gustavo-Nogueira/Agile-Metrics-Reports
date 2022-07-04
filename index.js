@@ -248,8 +248,8 @@ async function makeSprintsReport(issues, sprints, datetime) {
             .reduce((acc, i) => (acc + i.points), 0);
         return {
             number: sprint.number,
-            started_at: sprint.started_at,
-            ended_at: sprint.ended_at,
+            started_at: new Date(sprint.started_at).toLocaleDateString(),
+            ended_at: new Date(sprint.ended_at).toLocaleDateString(),
             total_issues,
             total_points,
             throughput,
