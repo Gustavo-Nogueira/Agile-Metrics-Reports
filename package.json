@@ -1,0 +1,19 @@
+{
+  "name": "agile-metrics-reports",
+  "version": "1.0.0",
+  "description": "Generates agile metric reports from ZenHub and GitHub APIs",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "loadsh": "0.0.4",
+    "papaparse": "^5.3.2"
+  }
+}
