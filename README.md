@@ -6,7 +6,7 @@ Gera relatórios com métricas ágeis e outras informações a partir das APIs d
 
 ### 1. Variáveis de Ambiente
 
-Crei um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
 |Variável|Descrição|Observação|
 |--------|---------|----------|
