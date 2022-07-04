@@ -21,9 +21,9 @@ Acesse o arquivo `configurations.js` e adicione as configurações necessárias.
 |Variável|Descrição|Observação|
 |--------|---------|----------|
 |ZENHUB_PIPELINES|Pipelines definidas no ZenHub do repositório.|-|
-|TODO_PIPELINE|Pipelines que representam as issues em TODO.|-|
-|DOING_PIPELINE|Pipelines que representam as issues em DOING/IN PROGRESS.|-|
-|DONE_PIPELINE|Pipelines que representam as issues em DONE.|-|
+|TODO_PIPELINE|Pipelines que representam as issues em `TODO`.|-|
+|DOING_PIPELINE|Pipelines que representam as issues em `DOING`/`IN PROGRESS`.|-|
+|DONE_PIPELINE|Pipelines que representam as issues em `DONE`.|-|
 |BACKLOG_LABELS|Labels que representam uma issue de backlog.|-|
 |SPRINT_DURATION|Duração em dias de cada sprint.|-|
 |START_DATE|Data de início da análise.|Exemplo: Início da primeira sprint. Formato: MM/DD/YYYY.|
@@ -45,16 +45,62 @@ node index.js
 
 ### Backlog Report 
 
-number, title, state, url, sprint, points, todo_at, doing_at, done_at, lead_time, cycle_time
+Relatório com informações e métricas de cada issue de backlog. O nome do arquivo gerado possui o formato `{datetime}_backlog_report.csv`. 
+
+|Coluna|Descrição|
+|------|---------|
+|number|Número da issue no GitHub.|
+|title|Título da issue.|
+|state|Estado da issue(`open` ou `closed`).|
+|url|URL de acesso da issue.|
+|sprint|Sprint(s) em que a issue permaneceu `IN PROGRESS`.|
+|points|Estimativa de pontos da issue (Story points).|
+|todo_at|Data em que a issue foi criada ou entrou no pipeline `TODO`.|
+|doing_at|Data em que a issue entrou no pipeline `IN PROGRESS`.| 
+|done_at|Data em que a issue entrou no pipeline `DONE`.|
+|lead_time|Lead time em dias da issue.| 
+|cycle_time|Cycle time em dias da issue.|
 
 ### Sprints Report 
 
-sprint, started_at, ended_at, total_issues, total_points, throughput, velocity
+Relatório com informações e métricas relativas ao progresso do projeto em cada sprint. O nome do arquivo gerado possui o formato `{datetime}_sprints_report.csv`. 
+
+|Coluna|Descrição|
+|------|---------|
+|sprint|Número de identificação da sprint.|
+|started_at|Data em que a sprint foi iniciada.| 
+|ended_at|Data em que a sprint foi concluída.|
+|total_issues|Número de issues `IN PRGORESS` durante a sprint.|
+|total_points|Quantidade de pontos das issues `IN PRGORESS` durante a sprint.|
+|throughput|Número de issues concluídas durante a sprint.|
+|velocity|Quantidade de pontos das issues concluídas durante a sprint.|
 
 ### Daily Report
 
-day, sprint, number_todo, number_doing, number_done, points_doing, points_done, number_wtd, number_wip, number_wdn, points_wip, points_wdn
+Relatório com informações e métricas relativas ao progresso do projeto desde o dia `START_DATE` até o dia `END_DATE`. O nome do arquivo gerado possui o formato `{datetime}_daily_report.csv`. 
+
+|Coluna|Descrição|
+|------|---------|
+|day|Dia da análise.|
+|sprint|Sprint do dia em questão.|
+|number_todo|Número de issues que entraram no pipeline `TODO` no dia em questão.| 
+|number_doing|Número de issues que entraram no pipeline `IN PROGRESS` no dia em questão.|
+|number_done|Número de issues que entraram no pipeline `DONE` no dia em questão.|
+|points_doing|Quantidade de pontos que entraram no pipeline `IN PROGRESS` no dia em questão.|
+|points_done|Quantidade de pontos que entraram no pipeline `DONE` no dia em questão.|
+|number_wtd|Número de issues que estão no pipeline `TODO` no dia em questão ("Work in TODO").|
+|number_wip|Número de issues que estão no pipeline `IN PROGRESS` no dia em questão ("Work in PROGRESS").|
+|number_wdn|Número de issues que estão no pipeline `DONE` no dia em questão ("Work in DONE").|
+|points_wip|Quantidade de pontos que estão no pipeline `IN PROGRESS` no dia em questão ("Work in PROGRESS").| 
+|points_wdn|Quantidade de pontos que estão no pipeline `DONE` no dia em questão ("Work in DONE").|
 
 ### Skipped Report 
 
-number, title, state, url
+Para fins de validação, este relatório possui as issues ignoradas, ou seja, issues que não estão ralacionadas ao backlog do produto. O nome do arquivo gerado possui o formato `{datetime}_skipped_report.csv`. 
+
+|Coluna|Descrição|
+|------|---------|
+|number|Número da issue no GitHub.|
+|title|Título da issue.|
+|state|Estado da issue(`open` ou `closed`).|
+|url|URL de acesso da issue.|
