@@ -70,8 +70,8 @@ Relatório com informações e métricas relativas ao progresso do projeto em ca
 |sprint|Número de identificação da sprint.|
 |started_at|Data em que a sprint foi iniciada.| 
 |ended_at|Data em que a sprint foi concluída.|
-|total_issues|Número de issues `IN PRGORESS` durante a sprint.|
-|total_points|Quantidade de pontos das issues `IN PRGORESS` durante a sprint.|
+|total_issues|Número de issues `IN PROGRESS` durante a sprint.|
+|total_points|Quantidade de pontos das issues `IN PROGRESS` durante a sprint.|
 |throughput|Número de issues concluídas durante a sprint.|
 |velocity|Quantidade de pontos das issues concluídas durante a sprint.|
 
