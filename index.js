@@ -214,9 +214,9 @@ async function makeBacklogReport(issues, datetime) {
             url: issue.url,
             sprint: issue.sprints.join('-'),
             points: issue.points,
-            todo_at: new Date(issue.todo_at).toLocaleString(),
-            doing_at: new Date(issue.doing_at).toLocaleString(),
-            done_at: new Date(issue.doing_at).toLocaleString(),
+            todo_at: issue.todo_at && new Date(issue.todo_at).toLocaleString(),
+            doing_at: issue.doing_at && new Date(issue.doing_at).toLocaleString(),
+            done_at: issue.done_at && new Date(issue.done_at).toLocaleString(),
             lead_time,
             cycle_time
         };
