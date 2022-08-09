@@ -94,6 +94,18 @@ Relatório com informações e métricas relativas ao progresso do projeto desde
 |points_wip|Quantidade de pontos que estão no pipeline `IN PROGRESS` no dia em questão ("Work in PROGRESS").| 
 |points_wdn|Quantidade de pontos que estão no pipeline `DONE` no dia em questão ("Work in DONE").|
 
+### Assignees Report
+
+Relatório contendo as issues alocadas para os contribuidores em cada sprint do projeto. O nome do arquivo gerado possui o formato `{datetime}_assignees_report.csv`. 
+
+|Coluna|Descrição|
+|------|---------|
+|sprint|Número de identificação da sprint.|
+|user|Nickname do contribuidor no GitHub.|
+|total_issues|Quantidade total de issues alocadas para o contribuidor.|
+|total_points|Quantidade total de pontos alocados para o contribuidor.|
+|issues|Issues alocadas para o contribuidor.|
+
 ### Skipped Report 
 
 Para fins de validação, este relatório possui as issues ignoradas, ou seja, issues que não estão ralacionadas ao backlog do produto. O nome do arquivo gerado possui o formato `{datetime}_skipped_report.csv`. 

@@ -8,7 +8,7 @@ import CONFIGURATIONS from './configurations.js';
 
 /**
  * Backlog Issue Object 
- *  { number, url, title, state, labels, created_at, closed_at, todo_at, doing_at, done_at, events, points, sprints }
+ *  { number, url, title, state, labels, assignees, created_at, closed_at, todo_at, doing_at, done_at, events, points, sprints }
  * 
  * Skipped Issue Object 
  *  { number, url, title, state, labels, created_at, closed_at }
@@ -60,6 +60,7 @@ async function extractDataFromRepository() {
                 state: issue.state,
                 url: issue.html_url,
                 labels: issue.labels,
+                assignees: issue.assignees,
                 created_at: new Date(issue.created_at),
                 closed_at: issue.closed_at && new Date(issue.closed_at),
             }));
@@ -290,6 +291,37 @@ async function makeDailyReport(issues, sprints, datetime) {
     await fs.writeFile(`reports/${datetime}_daily_report.csv`, csv);
 }
 
+async function makeAssigneesReport(issues, sprints, datetime) {
+    const report = [];
+    sprints.forEach((sprint) => {
+        const sprintIssues = issues.filter((issue) => issue.sprints.includes(sprint.number));
+        sprintIssues.forEach((issue) => {
+            issue.assignees.forEach((assignee) => {
+                const sprintUserIndex = report.findIndex((line) => line.sprint === sprint.number && line.user === assignee.login);
+                if (sprintUserIndex >= 0) {
+                    const sprintUser = report[sprintUserIndex];
+                    report[sprintUserIndex] = {
+                        ...sprintUser,
+                        issues: `${sprintUser.issues},${issue.number}`,
+                        total_issues: sprintUser.total_issues + 1,
+                        total_points: sprintUser.total_points + issue.points,
+                    }
+                } else {
+                    report.push({
+                        sprint: sprint.number,
+                        user: assignee.login,
+                        total_issues: 1,
+                        total_points: issue.points,
+                        issues: issue.number
+                    });
+                }
+            });
+        });
+    });
+    const csv = papaparse.unparse(report, { delimiter: ',' });
+    await fs.writeFile(`reports/${datetime}_assignees_report.csv`, csv);
+}
+
 async function main() {
     const datetime = new Date().toLocaleString().replaceAll('/', '-').replaceAll(':', '-').replaceAll(' ', '_');
 
@@ -309,6 +341,10 @@ async function main() {
 
     process.stdout.write(chalk.white('Gerando Daily Report...'));
     await makeDailyReport(backlogIssues, sprints, datetime);
+    process.stdout.write(chalk.green(`OK\n`));
+
+    process.stdout.write(chalk.white('Gerando Assignees Report...'));
+    await makeAssigneesReport(backlogIssues, sprints, datetime);
     process.stdout.write(chalk.green(`OK\n`));
 }
 
