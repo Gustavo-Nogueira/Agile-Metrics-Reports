@@ -302,7 +302,7 @@ async function makeAssigneesReport(issues, sprints, datetime) {
                     const sprintUser = report[sprintUserIndex];
                     report[sprintUserIndex] = {
                         ...sprintUser,
-                        issues: `${sprintUser.issues},${issue.number}`,
+                        issues: `${sprintUser.issues};${issue.title}`,
                         total_issues: sprintUser.total_issues + 1,
                         total_points: sprintUser.total_points + issue.points,
                     }
@@ -312,7 +312,7 @@ async function makeAssigneesReport(issues, sprints, datetime) {
                         user: assignee.login,
                         total_issues: 1,
                         total_points: issue.points,
-                        issues: issue.number
+                        issues: issue.title
                     });
                 }
             });
