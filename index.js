@@ -150,7 +150,7 @@ async function extractDataFromRepository() {
             // finding point estimate
             let points = null;
             for (const event of issue.events) {
-                if (event.type === 'estimateIssue') {
+                if (event.type === 'estimateIssue' && event.to_estimate?.value) {
                     points = event.to_estimate.value;
                     break;
                 }
